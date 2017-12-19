@@ -49,7 +49,7 @@ import com.opengamma.strata.product.swap.type.FixedIborSwapConventions;
 
 /**
  * Example of a simple Swap pricer using the Strata calculation runner. 100k USD LIBOR fixed-float interest rate swaps
- * are generated, with a randomised floating leg. The quotes are statically defined in {@link Quotes}.
+ * are generated, with a randomised fixed leg. The quotes are statically defined in {@link Quotes}.
  * <p>
  * The calculations are executed on a single thread.
  */
@@ -146,7 +146,7 @@ public class PriceSwap {
   }
 
   //-----------------------------------------------------------------------
-  // Create 100k swap trades with random floating legs
+  // Create 100k swap trades with random fixed legs
   private static List<Trade> createSwapTrades() {
     Random random = new Random(System.currentTimeMillis());
 
