@@ -47,7 +47,7 @@
           </descriptors>
           <archive>
             <manifest>
-              <mainClass>com.opengamma.swappricer</mainClass>
+              <mainClass>com.opengamma.swappricer.PriceSwap</mainClass>
             </manifest>
           </archive>
         </configuration>

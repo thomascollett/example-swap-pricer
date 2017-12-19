@@ -1,10 +1,11 @@
 /*
- * Copyright (C) 2015 - present by OpenGamma Inc. and the OpenGamma group of companies
+ * Copyright (C) 2017 - present by OpenGamma Inc. and the OpenGamma group of companies
  *
  * Please see distribution for license.
  */
 package com.opengamma.swappricer;
 
+import static com.opengamma.strata.collect.Guavate.toImmutableList;
 import static com.opengamma.strata.measure.StandardComponents.marketDataFactory;
 
 import java.io.File;
@@ -28,7 +29,6 @@ import com.opengamma.strata.calc.Results;
 import com.opengamma.strata.calc.marketdata.MarketDataConfig;
 import com.opengamma.strata.calc.marketdata.MarketDataRequirements;
 import com.opengamma.strata.calc.runner.CalculationFunctions;
-import com.opengamma.strata.collect.Guavate;
 import com.opengamma.strata.collect.io.ResourceLocator;
 import com.opengamma.strata.collect.timeseries.LocalDateDoubleTimeSeries;
 import com.opengamma.strata.data.MarketData;
@@ -149,16 +149,15 @@ public class PriceSwap {
   // Create 100k swap trades with random floating legs
   private static List<Trade> createSwapTrades() {
     Random random = new Random(System.currentTimeMillis());
-    ImmutableList<Trade> trades = random.doubles(100000)
-        .mapToObj(fixedRate -> createVanillaFixedVsLibor3mSwap(fixedRate))
-        .collect(Guavate.toImmutableList());
 
-    return trades;
+    return random.doubles(100000)
+        .mapToObj(PriceSwap::createVanillaFixedVsLibor30ySwap)
+        .collect(toImmutableList());
   }
 
   //-----------------------------------------------------------------------
   // Create a vanilla fixed vs libor 30Y swap
-  private static Trade createVanillaFixedVsLibor3mSwap(double fixedRate) {
+  private static Trade createVanillaFixedVsLibor30ySwap(double fixedRate) {
     TradeInfo tradeInfo = TradeInfo.builder()
         .id(StandardId.of("example", "1"))
         .addAttribute(TradeAttributeType.DESCRIPTION, "Fixed vs Libor 3m")
