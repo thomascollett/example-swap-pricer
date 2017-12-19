@@ -14,10 +14,10 @@ import com.opengamma.strata.market.observable.QuoteId;
  * The quotes to be used for building the curves. These are statically defined here, but a factory could be written
  * to perturbe the market data for different scenarios.
  */
-public class Quotes {
+final class Quotes {
 
   /** The quotes to be used for building the curves. */
-  public static final ImmutableMap<QuoteId, Double> QUOTES;
+  static final ImmutableMap<QuoteId, Double> QUOTES;
 
   static {
     QUOTES = ImmutableMap.<QuoteId, Double>builder()
@@ -68,5 +68,9 @@ public class Quotes {
 
   private static QuoteId settlementPrice(String index) {
     return QuoteId.of(StandardId.of("OG-Future", index), FieldName.SETTLEMENT_PRICE);
+  }
+
+  private Quotes() {
+    // Restricted constructor
   }
 }
